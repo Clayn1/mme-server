@@ -11,6 +11,6 @@ public interface IModPreviewService {
 
     void deleteModPreview(Integer id);
 
-    ModPreviewDTO getModPreviews(PageRequest pageRequest);
+    ModPreviewDTO getModPreviews(PageRequest pageRequest, String search);
 
 }

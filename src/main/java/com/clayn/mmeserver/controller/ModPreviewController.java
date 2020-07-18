@@ -6,6 +6,7 @@ import com.clayn.mmeserver.model.ModPreview;
 import com.clayn.mmeserver.service.IModPreviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +20,13 @@ public class ModPreviewController {
     private IModPreviewService modPreviewService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModPreviewDTO getModPreviews(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size){
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return modPreviewService.getModPreviews(pageRequest);
+    public ModPreviewDTO getModPreviews(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size,
+                                        @RequestParam(defaultValue = "numberOfDownloads") String orderBy,
+                                        @RequestParam (defaultValue = "Desc") String direction,
+                                        @RequestParam(defaultValue = "") String title){
+        PageRequest pageRequest = PageRequest.of(page - 1, size,
+                Sort.by(direction.equals("Desc") ? Sort.Direction.DESC : Sort.Direction.ASC, orderBy, "numberOfDownloads"));
+        return modPreviewService.getModPreviews(pageRequest, title);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -42,5 +47,4 @@ public class ModPreviewController {
     public void deleteModPreview(@PathVariable Integer id){
         modPreviewService.deleteModPreview(id);
     }
-
 }

@@ -2,11 +2,17 @@ package com.clayn.mmeserver.service;
 
 import com.clayn.mmeserver.dtos.ModPreviewDTO;
 import com.clayn.mmeserver.model.ModPreview;
+import com.clayn.mmeserver.model.User;
 import com.clayn.mmeserver.repository.ModPreviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ModPreviewService implements IModPreviewService {
@@ -30,8 +36,9 @@ public class ModPreviewService implements IModPreviewService {
     }
 
     @Override
-    public ModPreviewDTO getModPreviews(PageRequest pageRequest) {
-        Page<ModPreview> modPreviewPages = modPreviewRepository.findAll(pageRequest);
+    public ModPreviewDTO getModPreviews(PageRequest pageRequest, String search) {
+        Page<ModPreview> modPreviewPages = modPreviewRepository.findModPreviewsByTitleContaining(search, pageRequest);
+
         ModPreviewDTO modPreviewDTO = new ModPreviewDTO();
         modPreviewDTO.setModPreviews(modPreviewPages.getContent());
         modPreviewDTO.setEmpty(modPreviewPages.isEmpty());
