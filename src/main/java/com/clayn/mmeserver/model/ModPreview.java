@@ -1,6 +1,8 @@
 package com.clayn.mmeserver.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +24,11 @@ public class ModPreview {
     private String title;
     @NotBlank
     private String description;
-
     private String imgPath;
     @PositiveOrZero
     private int numberOfDownloads;
+
+    @OneToOne(mappedBy = "modPreview")
+    @JsonIgnore
+    private ModPage modPage;
 }
