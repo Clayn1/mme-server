@@ -5,11 +5,14 @@ import com.clayn.mmeserver.repository.ModPageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+
 @Service
 public class ModPageService implements IModPageService{
     @Autowired
     private ModPageRepository modPageRepository;
-
+    @Autowired
+    private EntityManager entityManager;
     @Override
     public ModPage insertModPage(ModPage modPage) {
         return modPageRepository.save(modPage);

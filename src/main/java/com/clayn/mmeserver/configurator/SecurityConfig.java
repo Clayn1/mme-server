@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
     @Autowired
     private JwtFilter jwtFilter;
-//    @Autowired
-//    SimpleCORSFilter simpleCORSFilter;
+    @Autowired
+    SimpleCORSFilter simpleCORSFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -55,12 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable()
                 .authorizeRequests()
-                .antMatchers("/user/**").anonymous()
 //                .antMatchers("/mods/**").authenticated()
+                .antMatchers("/user/**").anonymous()
                 .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                // .addFilterBefore(simpleCORSFilter, CorsFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .httpBasic();
     }
-
 }

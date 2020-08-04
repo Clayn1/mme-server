@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 @AllArgsConstructor
@@ -27,8 +28,14 @@ public class ModPreview {
     private String imgPath;
     @PositiveOrZero
     private int numberOfDownloads;
+    private int modPageId;
 
     @OneToOne(mappedBy = "modPreview")
     @JsonIgnore
     private ModPage modPage;
+
+    @ManyToOne
+    @JsonIgnore
+    private Profile profile;
+
 }

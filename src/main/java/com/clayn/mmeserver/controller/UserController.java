@@ -1,5 +1,6 @@
 package com.clayn.mmeserver.controller;
 
+import com.clayn.mmeserver.configurator.SimpleCORSFilter;
 import com.clayn.mmeserver.dtos.AuthenticationRequest;
 import com.clayn.mmeserver.dtos.AuthenticationResponse;
 import com.clayn.mmeserver.model.User;
@@ -22,6 +23,7 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @PostMapping
+    @ResponseStatus(value = HttpStatus.OK)
     public String registerUser(@RequestBody User user){
         return userService.createUser(user);
     }

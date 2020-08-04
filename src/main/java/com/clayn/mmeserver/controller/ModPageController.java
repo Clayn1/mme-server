@@ -21,6 +21,7 @@ public class ModPageController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public ModPage createModPage(@RequestBody ModPage modPage){
+        modPage.getModPreview().setProfile(modPage.getProfile());
         return modPageService.insertModPage(modPage);
     }
 

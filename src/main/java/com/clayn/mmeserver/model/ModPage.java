@@ -25,7 +25,9 @@ public class ModPage {
     @NotNull
     private String downloadPath;
 
-    @OneToOne(targetEntity = ModPreview.class)
+    @OneToOne(targetEntity = ModPreview.class, cascade = CascadeType.ALL)
     private ModPreview modPreview;
+
+    @ManyToOne
+    private Profile profile;
 }
-// Короче Тайтл брать из Превью, также как и всякое другое, но связь двухсторонняя чтобы в Превью можно было взять Айди из Пейджа
